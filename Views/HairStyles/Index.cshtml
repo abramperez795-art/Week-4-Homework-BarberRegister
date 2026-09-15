@@ -1,0 +1,33 @@
+@model List<BarberRegister.Models.HairStyle>
+
+@{
+ViewData["Title"] = "Hair Styles";
+}
+
+<h1>BarberRegister</h1>
+
+<p>Browse popular barbering styles and their service details.</p>
+
+<table class="table">
+<thead>
+<tr>
+<th>Style</th>
+<th>Hair Length</th>
+<th>Starting Price</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+@foreach (var hairStyle in Model)
+{
+<tr>
+<td>@hairStyle.Name</td>
+<td>@hairStyle.HairLength</td>
+<td>@hairStyle.StartingPrice.ToString("C")</td>
+<td>
+<a asp-controller="HairStyles" asp-action="Details" asp-route-id="@hairStyle.Id">View details</a>
+</td>
+</tr>
+}
+</tbody>
+</table>
