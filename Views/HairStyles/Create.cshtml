@@ -1,0 +1,55 @@
+@model BarberRegister.Models.HairStyle
+
+@{
+    ViewData["Title"] = "Add a Hair Style";
+}
+
+<h1>Add a Hair Style</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="HairLength" class="form-label"></label>
+        <input asp-for="HairLength" class="form-control" />
+        <span asp-validation-for="HairLength" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TypicalDurationMinutes" class="form-label"></label>
+        <input asp-for="TypicalDurationMinutes" class="form-control" />
+        <span asp-validation-for="TypicalDurationMinutes" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="StartingPrice" class="form-label"></label>
+        <input asp-for="StartingPrice" class="form-control" />
+        <span asp-validation-for="StartingPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="IncludesBeardService" class="form-check-input" />
+        <label asp-for="IncludesBeardService" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Hair Style</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to Hair Styles</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
