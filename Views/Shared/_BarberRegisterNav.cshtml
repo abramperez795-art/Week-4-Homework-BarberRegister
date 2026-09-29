@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg barber-navbar shadow-sm">
+    <div class="container">
+        <a class="navbar-brand barber-brand"
+           asp-controller="HairStyles"
+           asp-action="Index">
+            ✂ Barber Register
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#barberNavigation"
+                aria-controls="barberNavigation"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="barberNavigation">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link barber-nav-link"
+                       asp-controller="HairStyles"
+                       asp-action="Index">
+                        Browse Styles
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
