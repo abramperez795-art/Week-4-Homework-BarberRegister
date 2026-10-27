@@ -1,0 +1,38 @@
+@model HairStyleReviewFormViewModel
+@{ ViewData["Title"] = "Add a hairstyle review"; }
+<h1>Add a hairstyle review</h1>
+<form asp-action="Create" method="post" class="col-md-7">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Review.HairStyleId" class="form-label"></label>
+        <select asp-for="Review.HairStyleId" asp-items="Model.HairStyles" class="form-select">
+            <option value="">— pick a hairstyle —</option>
+        </select>
+        <span asp-validation-for="Review.HairStyleId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Review.ReviewerName" class="form-label"></label>
+        <input asp-for="Review.ReviewerName" class="form-control" />
+        <span asp-validation-for="Review.ReviewerName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Review.Rating" class="form-label"></label>
+        <input asp-for="Review.Rating" class="form-control" min="1" max="5" />
+        <span asp-validation-for="Review.Rating" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Review.Comments" class="form-label"></label>
+        <textarea asp-for="Review.Comments" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Review.Comments" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Review.ReviewedOn" class="form-label"></label>
+        <input asp-for="Review.ReviewedOn" class="form-control" />
+        <span asp-validation-for="Review.ReviewedOn" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save review</button>
+    <a asp-controller="HairStyles" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

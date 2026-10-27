@@ -1,0 +1,15 @@
+@model HairStyle
+@{ ViewData["Title"] = "Delete hairstyle"; }
+<h1>Delete @Model.Name?</h1>
+<p>@Model.Description</p>
+@if (Model.Reviews.Count > 0)
+{
+    <div class="alert alert-warning">
+        This hairstyle has @Model.Reviews.Count review(s). Deleting it also deletes all of these reviews.
+    </div>
+}
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete hairstyle</button>
+    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Cancel</a>
+</form>

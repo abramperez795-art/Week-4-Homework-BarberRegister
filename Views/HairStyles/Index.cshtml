@@ -1,43 +1,22 @@
-@model List<BarberRegister.Models.HairStyle>
-
-@{
-    ViewData["Title"] = "Hairstyles";
+@model IEnumerable<HairStyle>
+@{ ViewData["Title"] = "Hair Styles"; }
+<h1>Hair Styles</h1>
+<p><a asp-action="Create" class="btn btn-primary">Add a hairstyle</a></p>
+<div class="row g-3">
+@foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-4">
+        <article class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">@item.Name</h2>
+                <p>@item.Description</p>
+                <p>@item.StartingPrice.ToString("C") · @item.TypicalDurationMinutes minutes</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <span>@item.Reviews.Count reviews</span>
+            </div>
+        </article>
+    </div>
 }
-
-<a asp-action="Create" class="btn btn-primary mb-3">Add a Hair Style</a>
-
-<h1>BarberRegister</h1>
-
-<p>Browse popular barbering styles and their service details.</p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Style</th>
-            <th>Description</th>
-            <th>Starting Price</th>
-            <th></th>
-        </tr>
-    </thead>
-   <tbody>
-    @foreach (var hairStyle in Model)
-    {
-        <tr>
-            <td>@hairStyle.Name</td>
-            <td>@hairStyle.HairLength</td>
-            <td>@hairStyle.StartingPrice.ToString("C")</td>
-            <td>
-                <a asp-controller="HairStyles"
-                   asp-action="Details"
-                   asp-route-id="@hairStyle.Id">
-                    View details
-                </a>
-            </td>
-        </tr>
-    }
-</tbody>
-</table>
-
-@section Scripts {
-    <script src="https://jgrissom.github.io/dotnet-web-dev/week-06/homework-checks.js"></script>
-}
+</div>

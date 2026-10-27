@@ -1,13 +1,7 @@
-@{
-ViewData["Title"] = "Home";
+@{ ViewData["Title"] = "Barber Register"; }
+<h1>Barber Register</h1>
+<p>Explore hairstyles, compare service information, and share a review.</p>
+<p><a asp-controller="HairStyles" asp-action="Index" class="btn btn-primary">Browse Hair Styles</a></p>
+@section Scripts {
+    <script src="https://jgrissom.github.io/dotnet-web-dev/week-09/homework-checks.js"></script>
 }
-
-<div class="text-center">
-<h1 class="display-4">Welcome to BarberRegister</h1>
-<p>
-Browse popular barbering styles, service details, prices, and estimated appointment times.
-</p>
-<a asp-controller="HairStyles" asp-action="Index" class="btn btn-primary">Browse Hair Styles</a>
-</div>
-
-<script src="https://jgrissom.github.io/dotnet-web-dev/week-06/homework-checks.js"></script>
