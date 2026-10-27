@@ -1,71 +1,80 @@
+using BarberRegister.Data;
 using BarberRegister.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace BarberRegister.Controllers;
 
 public class HairStylesController : Controller
 {
-private static List<HairStyle> hairStyles = new List<HairStyle>
-{
-    new HairStyle
-    {
-        Id = 1,
-        Name = "Low Fade",
-        Description = "A clean tapered haircut.",
-        HairLength = "Short",
-        TypicalDurationMinutes = 45,
-        StartingPrice = 35,
-        IncludesBeardService = false
-    },
-    new HairStyle
-    {
-        Id = 2,
-        Name = "Box Braids",
-        Description = "A protective braided hairstyle.",
-        HairLength = "Medium to long",
-        TypicalDurationMinutes = 180,
-        StartingPrice = 120,
-        IncludesBeardService = false
-    }
-};
+    private readonly BarberRegisterContext _context;
+    public HairStylesController(BarberRegisterContext context) => _context = context;
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index() => View(await _context.HairStyles
+        .Include(h => h.Reviews).OrderBy(h => h.Name).ToListAsync());
+
+    public async Task<IActionResult> Details(int id)
     {
-        return View(hairStyles);
-    }
-
-    public IActionResult Details(int id)
-    {
-        HairStyle? hairStyle = hairStyles.FirstOrDefault(x => x.Id == id);
-
-        if (hairStyle == null)
-        {
-            return NotFound();
-        }
-
-        return View(hairStyle);
+        var item = await _context.HairStyles.Include(h => h.Reviews).FirstOrDefaultAsync(h => h.Id == id);
+        if (item == null) return NotFound();
+        return View(item);
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public IActionResult Create() => View(new HairStyle());
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Name,Description,HairLength,TypicalDurationMinutes,StartingPrice,IncludesBeardService")] HairStyle item)
     {
-        return View();
+        if (!ModelState.IsValid) return View(item);
+        _context.HairStyles.Add(item);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var item = await _context.HairStyles.FindAsync(id);
+        if (item == null) return NotFound();
+        return View(item);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(HairStyle item)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,HairLength,TypicalDurationMinutes,StartingPrice,IncludesBeardService")] HairStyle form)
     {
-        if (!ModelState.IsValid)
-        {
-            return View(item);
-        }
+        if (id != form.Id) return NotFound();
+        if (!ModelState.IsValid) return View(form);
+        var item = await _context.HairStyles.FindAsync(id);
+        if (item == null) return NotFound();
+        item.Name = form.Name;
+        item.Description = form.Description;
+        item.HairLength = form.HairLength;
+        item.TypicalDurationMinutes = form.TypicalDurationMinutes;
+        item.StartingPrice = form.StartingPrice;
+        item.IncludesBeardService = form.IncludesBeardService;
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
 
-        item.Id = hairStyles.Max(x => x.Id) + 1;
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var item = await _context.HairStyles.Include(h => h.Reviews).FirstOrDefaultAsync(h => h.Id == id);
+        if (item == null) return NotFound();
+        return View(item);
+    }
 
-        hairStyles.Add(item);
-
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var item = await _context.HairStyles.FindAsync(id);
+        if (item == null) return NotFound();
+        _context.HairStyles.Remove(item);
+        await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 }
