@@ -1,7 +1,25 @@
-@{ ViewData["Title"] = "Barber Register"; }
-<h1>Barber Register</h1>
-<p>Explore hairstyles, compare service information, and share a review.</p>
-<p><a asp-controller="HairStyles" asp-action="Index" class="btn btn-primary">Browse Hair Styles</a></p>
+@{
+    ViewData["Title"] = "Barber Register";
+}
+
+<section class="py-4">
+    <h1>Find inspiration for your next haircut.</h1>
+    <p class="lead">
+        Barber Register helps clients explore hairstyles and helps
+        barbers present their services.
+    </p>
+
+    <p>
+        Compare starting prices, typical appointment lengths,
+        and beard-service options, then read or share a hairstyle review.
+    </p>
+
+    <a asp-controller="HairStyles"
+       asp-action="Index"
+       class="btn btn-primary">
+        Browse hairstyles
+    </a>
+</section>
 @section Scripts {
-    <script src="https://jgrissom.github.io/dotnet-web-dev/week-09/homework-checks.js"></script>
+    <script src="https://jgrissom.github.io/dotnet-web-dev/week-10/homework-checks.js"></script>
 }

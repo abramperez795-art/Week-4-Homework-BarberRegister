@@ -1,26 +1,38 @@
 @{
-    ViewData["Title"] = "Privacy";
+    ViewData["Title"] = "About Barber Register";
 }
 
-<div class="barber-card">
-    <h1>Privacy</h1>
+<section class="barber-card">
+    <h1>About Barber Register</h1>
 
     <p>
-        Barber Register does not collect personal customer information.
-        This site is a hairstyle catalog created for educational purposes.
+        Barber Register is an educational project that helps clients
+        explore hairstyles and compare service information.
+        It also gives barbers a place to present hairstyle options.
+    </p>
+
+    <p>
+        Each hairstyle includes a description, hair length,
+        typical service time, starting price, and beard-service information.
+        Visitors can also submit reviews.
+    </p>
+
+    <h2 class="h4">Before submitting a review</h2>
+
+    <p>
+        Reviews include a reviewer name, rating, comments, and date.
+        Use a display name and do not include phone numbers,
+        addresses, or other sensitive information.
+    </p>
+
+    <p>
+        This version does not include account-based access.
+        Its add, edit, and delete features are publicly accessible.
     </p>
 
     <a class="btn btn-secondary"
        asp-controller="HairStyles"
        asp-action="Index">
-        Back to Hairstyles
+        Back to hairstyles
     </a>
-</div>
-
-@section Scripts {
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            console.log("Privacy page loaded.");
-        });
-    </script>
-}
+</section>
