@@ -1,6 +1,7 @@
 @model HairStyle
-@{ ViewData["Title"] = "Hairstyle Details"; }
-<h1>@Model.Name</h1>
+@{
+    ViewData["Title"] = Model.Name + " — Hairstyle Details";
+}<h1>@Model.Name</h1>
 <dl class="row">
     <dt class="col-sm-3">Description</dt><dd class="col-sm-9">@Model.Description</dd>
     <dt class="col-sm-3">Hair length</dt><dd class="col-sm-9">@Model.HairLength</dd>
@@ -15,9 +16,21 @@
     <a asp-action="Index" class="btn btn-secondary">Back to Hair Styles</a>
 </p>
 <h2 class="h4 mt-4">Reviews (@Model.Reviews.Count)</h2>
-@if (Model.Reviews.Count == 0)
+@if (!Model.Reviews.Any())
 {
-    <p class="text-muted">No reviews yet.</p>
+    <section class="border rounded p-3">
+        <p>
+            No reviews have been added for @Model.Name yet.
+            Be the first to share your experience.
+        </p>
+
+        <a asp-controller="HairStyleReviews"
+           asp-action="Create"
+           asp-route-hairStyleId="@Model.Id"
+           class="btn btn-primary">
+            Write the first review
+        </a>
+    </section>
 }
 else
 {

@@ -1,22 +1,66 @@
 @model IEnumerable<HairStyle>
-@{ ViewData["Title"] = "Hair Styles"; }
-<h1>Hair Styles</h1>
-<p><a asp-action="Create" class="btn btn-primary">Add a hairstyle</a></p>
-<div class="row g-3">
-@foreach (var item in Model)
+
+@{
+    ViewData["Title"] = "Browse Hairstyles";
+}
+
+<h1>Hairstyles</h1>
+
+<p>
+    Compare styles, starting prices, appointment lengths,
+    and customer reviews.
+</p>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        Add a hairstyle
+    </a>
+</p>
+
+@if (!Model.Any())
 {
-    <div class="col-md-6 col-lg-4">
-        <article class="card h-100">
-            <div class="card-body">
-                <h2 class="h5">@item.Name</h2>
-                <p>@item.Description</p>
-                <p>@item.StartingPrice.ToString("C") · @item.TypicalDurationMinutes minutes</p>
+    <section class="border rounded p-4">
+        <h2 class="h4">No hairstyles have been added yet.</h2>
+
+        <p>
+            Add the first hairstyle to start building the catalog.
+        </p>
+
+        <a asp-action="Create" class="btn btn-primary">
+            Add the first hairstyle
+        </a>
+    </section>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <article class="card h-100">
+                    <div class="card-body">
+                        <h2 class="h5">@item.Name</h2>
+
+                        <p>@item.Description</p>
+
+                        <p>
+                            Starting at @item.StartingPrice.ToString("C")
+                            &middot;
+                            @item.TypicalDurationMinutes minutes
+                        </p>
+                    </div>
+
+                    <div class="card-footer d-flex flex-wrap
+                                justify-content-between gap-2">
+                        <a asp-action="Details"
+                           asp-route-id="@item.Id">
+                            View @item.Name
+                        </a>
+
+                        <span>@item.Reviews.Count reviews</span>
+                    </div>
+                </article>
             </div>
-            <div class="card-footer d-flex justify-content-between">
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                <span>@item.Reviews.Count reviews</span>
-            </div>
-        </article>
+        }
     </div>
 }
-</div>

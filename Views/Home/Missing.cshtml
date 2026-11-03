@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "Page Not Found";
+}
+
+<h1>We couldn't find that page.</h1>
+
+<p>
+    The address may be incorrect, or the hairstyle record
+    may have been removed.
+</p>
+
+<div class="d-flex flex-wrap gap-2">
+    <a class="btn btn-primary"
+       asp-controller="HairStyles"
+       asp-action="Index">
+        Browse hairstyles
+    </a>
+
+    <a class="btn btn-outline-secondary"
+       asp-controller="Home"
+       asp-action="Index">
+        Go home
+    </a>
+</div>
