@@ -1,0 +1,11 @@
+ Views/HairStyleReviews/Create.cshtml          | 38 [32m++++++++++++++++[m
+ Views/HairStyles/Create.cshtml                | 35 [32m+++++[m[31m----------[m
+ Views/HairStyles/Delete.cshtml                | 15 [32m+++++++[m
+ Views/HairStyles/Details.cshtml               | 58 [32m++++++++++++[m[31m------------[m
+ Views/HairStyles/Edit.cshtml                  | 41 [32m+++++++++++++++++[m
+ Views/HairStyles/Index.cshtml                 | 63 [32m+++++++++[m[31m------------------[m
+ Views/Home/Index.cshtml                       | 18 [32m+++[m[31m-----[m
+ Views/Shared/_ValidationScriptsPartial.cshtml |  4 [32m+[m[31m-[m
+ Views/_ViewImports.cshtml                     |  5 [32m++[m[31m-[m
+ Views/_ViewStart.cshtml                       |  4 [32m+[m[31m-[m
+ 10 files changed, 168 insertions(+), 113 deletions(-)

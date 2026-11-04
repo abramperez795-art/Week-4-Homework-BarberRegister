@@ -8,18 +8,16 @@ namespace BarberRegister.Controllers;
 public class HairStylesController : Controller
 {
     private readonly BarberRegisterContext _context;
-    public HairStylesController(BarberRegisterContext context) => _context = context;
 
-    public async Task<IActionResult> Index() => View(await _context.HairStyles
-        .Include(h => h.Reviews).OrderBy(h => h.Name).ToListAsync());
+    public HairStylesController(BarberRegisterContext context)
+        => _context = context;
 
-    public async Task<IActionResult> Details(int id)
-    {
-        var item = await _context.HairStyles.Include(h => h.Reviews).FirstOrDefaultAsync(h => h.Id == id);
-        if (item == null) return NotFound();
-        return View(item);
-    }
-
+    // TEMPORARY LOCAL TEST — restore before committing or deploying.
+ 
+public async Task<IActionResult> Index() => View(await _context.HairStyles
+    .Include(h => h.Reviews).OrderBy(h => h.Name).ToListAsync());
+    
+    // Leave your existing Create, Edit, and Delete methods below unchanged.
     [HttpGet]
     public IActionResult Create() => View(new HairStyle());
 
