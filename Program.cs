@@ -1,4 +1,6 @@
 using BarberRegister.Data;
+using BarberRegister.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,9 @@ builder.Services.AddDbContext<BarberRegisterContext>(options =>
         ?? throw new InvalidOperationException(
             "Set ConnectionStrings:BarberRegisterContext before starting the app.")));
 
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<BarberRegisterContext>();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -22,6 +27,8 @@ app.UseStatusCodePagesWithReExecute("/Home/Missing");
 
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

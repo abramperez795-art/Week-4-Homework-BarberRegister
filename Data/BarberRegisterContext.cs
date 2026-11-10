@@ -1,11 +1,11 @@
 using BarberRegister.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberRegister.Data;
 
-public class BarberRegisterContext : DbContext
-{
-    public BarberRegisterContext(
+public class BarberRegisterContext : IdentityDbContext<AppUser>
+{    public BarberRegisterContext(
         DbContextOptions<BarberRegisterContext> options)
         : base(options)
     {
@@ -18,6 +18,7 @@ public class BarberRegisterContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<HairStyle>().HasData(
             new HairStyle
             {
