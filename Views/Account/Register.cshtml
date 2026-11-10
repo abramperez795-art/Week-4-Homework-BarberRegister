@@ -16,6 +16,14 @@
                autocomplete="username" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
+    <div class="mb-3">
+    <label asp-for="DisplayName" class="form-label"></label>
+    <input asp-for="DisplayName"
+           class="form-control"
+           autocomplete="nickname" />
+    <span asp-validation-for="DisplayName"
+          class="text-danger"></span>
+</div>
 
     <div class="mb-3">
         <label asp-for="Password" class="form-label"></label>

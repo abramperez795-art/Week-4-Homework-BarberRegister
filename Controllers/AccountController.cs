@@ -33,11 +33,12 @@ public class AccountController : Controller
             return View(form);
         }
 
-        var user = new AppUser
-        {
-            UserName = form.Email,
-            Email = form.Email
-        };
+     var user = new AppUser
+{
+    UserName = form.Email,
+    Email = form.Email,
+    DisplayName = form.DisplayName
+};
 
         var result = await _userManager.CreateAsync(user, form.Password);
 
@@ -52,6 +53,53 @@ public class AccountController : Controller
         }
 
         await _signInManager.SignInAsync(user, isPersistent: false);
+
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    public IActionResult Login(string? returnUrl = null)
+    {
+        ViewData["ReturnUrl"] = returnUrl;
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(
+        LoginViewModel form,
+        string? returnUrl = null)
+    {
+        ViewData["ReturnUrl"] = returnUrl;
+
+        if (!ModelState.IsValid)
+        {
+            return View(form);
+        }
+
+        var result = await _signInManager.PasswordSignInAsync(
+            form.Email,
+            form.Password,
+            form.RememberMe,
+            lockoutOnFailure: false);
+
+        if (!result.Succeeded)
+        {
+            ModelState.AddModelError(
+                "",
+                "That email and password don't match an account.");
+
+            return View(form);
+        }
+
+        return LocalRedirect(returnUrl ?? "/");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
 
         return RedirectToAction("Index", "Home");
     }

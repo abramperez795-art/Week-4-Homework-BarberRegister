@@ -1,0 +1,47 @@
+@using BarberRegister.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
+
+<ul class="navbar-nav align-items-sm-center">
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var name = string.IsNullOrEmpty(user?.DisplayName)
+            ? User.Identity.Name
+            : user.DisplayName;
+
+        <li class="nav-item">
+            <span class="navbar-text me-2">
+                Signed in as @name
+            </span>
+        </li>
+
+        <li class="nav-item">
+            <form asp-controller="Account"
+                  asp-action="Logout"
+                  method="post">
+                <button type="submit" class="btn btn-link nav-link">
+                    Sign out
+                </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="Account"
+               asp-action="Register">
+                Create an account
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="Account"
+               asp-action="Login">
+                Sign in
+            </a>
+        </li>
+    }
+</ul>
