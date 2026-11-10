@@ -2,10 +2,12 @@ using BarberRegister.Data;
 using BarberRegister.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BarberRegister.Controllers;
 
-public class HairStylesController : Controller
+
+[Authorize]public class HairStylesController : Controller
 {
     private readonly BarberRegisterContext _context;
 
@@ -14,6 +16,8 @@ public class HairStylesController : Controller
 
     // TEMPORARY LOCAL TEST — restore before committing or deploying.
  
+
+[AllowAnonymous]
 public async Task<IActionResult> Index() => View(await _context.HairStyles
     .Include(h => h.Reviews).OrderBy(h => h.Name).ToListAsync());
     
@@ -75,4 +79,19 @@ public async Task<IActionResult> Index() => View(await _context.HairStyles
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
+    [AllowAnonymous]
+[HttpGet]
+public async Task<IActionResult> Details(int id)
+{
+    var item = await _context.HairStyles
+        .Include(h => h.Reviews)
+        .FirstOrDefaultAsync(h => h.Id == id);
+
+    if (item == null)
+    {
+        return NotFound();
+    }
+
+    return View(item);
+}
 }
